@@ -5,17 +5,16 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/games", "root", "");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/zoo", "root", "");
 
         Statement statement = connection.createStatement();
-        ResultSet result = statement.executeQuery("SELECT * FROM games");
+        ResultSet result = statement.executeQuery("SELECT DISTINCT Z.jmeno, D.nazev FROM Zvirata Z JOIN Druhy D ON D.id = Z.druh");
 
 
         while(result.next()) {
-            int id = result.getInt("id");
-            String studio = result.getString("studio");
-            String game = result.getString("game");
-            System.out.println(id + "\t" + studio + "\t" + game + "\t");
+            String jmeno = result.getString("jmeno");
+            String nazev = result.getString("nazev");
+            System.out.println(jmeno + "\t" + nazev + "\t");
 
 
         }
